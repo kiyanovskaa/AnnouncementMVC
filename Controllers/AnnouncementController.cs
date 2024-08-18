@@ -49,5 +49,16 @@ namespace AnnouncementMVC.Controllers
 
             return View(model);
         }
+
+        public IActionResult Delete(int id)
+        {
+            var customer = _context.announcements.FirstOrDefault(c => c.Id == id);
+            if (customer != null)
+            {
+                _context.announcements.Remove(customer);
+                _context.SaveChanges();
+            }
+            return View("Index", _context.announcements);
+        }
     }
 }

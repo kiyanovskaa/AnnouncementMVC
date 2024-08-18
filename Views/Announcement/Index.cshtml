@@ -3,9 +3,6 @@
 @{
     ViewData["Title"] = "View";
 }
-
-
-
 <h1>Announcement</h1>
 
 <p>
@@ -13,25 +10,6 @@
 </p>
 
 <table class="table">
-   @*  <thead>
-        <tr>
-             <th>
-                <a asp-action="SortByLastName" asp-route-sortOrder="@ViewData["NameSortParam"]">LastName</a>
-
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-          
-            <th>
-                <a asp-action="SortByAddress" asp-route-sortOrder="@ViewData["AddressSortParam"]">Address</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discount)
-            </th>
-            <th></th>
-        </tr>
-    </thead> *@
     <tbody>
         @foreach (var item in Model)
         {
@@ -40,11 +18,9 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                
-               @*  <td>
-                    @Html.ActionLink("Edit", "Edit", "Customer", new { id = item.Id }) |
-                    @Html.ActionLink("View", "View", "Customer", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", "Customer", new { id = item.Id }, new { @class = "k-button" })
-                </td> *@
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Announcement", new { id = item.Id }, new { @class = "k-button" })
+                </td>
             </tr>
         }
     </tbody>
