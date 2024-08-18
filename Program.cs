@@ -1,8 +1,18 @@
+using AnnouncementMVC.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AnnouncementContext>(
+    options =>
+    {
+        var conString = builder.Configuration.GetConnectionString("AnnouncementContext");
 
+        options.UseSqlServer(conString);
+    }
+    );
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
