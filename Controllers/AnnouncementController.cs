@@ -2,6 +2,7 @@
 using AnnouncementMVC.Models.Entities;
 using AnnouncementMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnnouncementMVC.Controllers
 {
@@ -59,6 +60,16 @@ namespace AnnouncementMVC.Controllers
                 _context.SaveChanges();
             }
             return View("Index", _context.announcements);
+        }
+        public IActionResult View(int id)
+        {
+            var announcement = _context.announcements.Include(a => a.AnnouncementDetail).FirstOrDefault(a => a.Id == id);
+            
+            if (announcement != null)
+            {
+                return View(announcement);
+            }
+            return View("NotExists");
         }
     }
 }
