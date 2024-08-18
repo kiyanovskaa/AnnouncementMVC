@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AnnouncementMVC.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 
-namespace AnnouncementMVC.Data.Entities
+namespace AnnouncementMVC.Data
 {
     public class AnnouncementContext : DbContext
     {
