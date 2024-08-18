@@ -1,3 +1,4 @@
+using AnnouncementMVC.Data;
 using AnnouncementMVC.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,12 @@ builder.Services.AddDbContext<AnnouncementContext>(
     }
     );
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
