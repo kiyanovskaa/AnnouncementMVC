@@ -1,4 +1,4 @@
-﻿using AnnouncementMVC.Data.Entities;
+﻿using AnnouncementMVC.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 

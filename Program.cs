@@ -1,5 +1,4 @@
 using AnnouncementMVC.Data;
-using AnnouncementMVC.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

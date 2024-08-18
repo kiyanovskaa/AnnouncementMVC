@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AnnouncementMVC.Data.Entities
+namespace AnnouncementMVC.Models.Entities
 {
     public class AnnouncementDetails
     {
