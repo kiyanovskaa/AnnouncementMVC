@@ -20,6 +20,7 @@
                
                 <td>
                     @Html.ActionLink("View", "View", "Announcement", new { id = item.Id }, new { @class = "k-button" }) |
+                    @Html.ActionLink("Edit", "Edit", "Announcement", new { id = item.Id }, new { @class = "k-button" }) |
                     @Html.ActionLink("Delete", "Delete", "Announcement", new { id = item.Id }, new { @class = "k-button" })
                 </td>
             </tr>

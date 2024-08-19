@@ -71,5 +71,61 @@ namespace AnnouncementMVC.Controllers
             }
             return View("NotExists");
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var announcement = await _context.announcements
+                .Include(a => a.AnnouncementDetail) // Завантаження деталей
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (announcement == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CreateAnnouncementViewModel
+            {
+                Title = announcement.Title,
+                Description = announcement.AnnouncementDetail.Description
+            };
+
+            return View(model);
+        }
+
+        // POST: Announcement/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, CreateAnnouncementViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var announcement = await _context.announcements
+                    .Include(a => a.AnnouncementDetail)
+                    .FirstOrDefaultAsync(a => a.Id == id);
+
+                if (announcement == null)
+                {
+                    return NotFound();
+                }
+
+                announcement.Title = model.Title;
+                announcement.AnnouncementDetail.Description = model.Description;
+
+                // Оновлюємо дату додавання тільки якщо це потрібно
+                // announcement.AnnouncementDetail.DateAdded = DateTime.Now;
+
+                _context.Update(announcement);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
+        }
     }
 }
