@@ -93,7 +93,6 @@ namespace AnnouncementMVC.Controllers
             return View(model);
         }
 
-        // POST: Announcement/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CreateAnnouncementViewModel model)
@@ -116,9 +115,6 @@ namespace AnnouncementMVC.Controllers
 
                 announcement.Title = model.Title;
                 announcement.AnnouncementDetail.Description = model.Description;
-
-                // Оновлюємо дату додавання тільки якщо це потрібно
-                // announcement.AnnouncementDetail.DateAdded = DateTime.Now;
 
                 _context.Update(announcement);
                 await _context.SaveChangesAsync();
