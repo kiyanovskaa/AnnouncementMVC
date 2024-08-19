@@ -3,6 +3,7 @@ using AnnouncementMVC.Models.Entities;
 using AnnouncementMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace AnnouncementMVC.Controllers
 {
@@ -126,6 +127,43 @@ namespace AnnouncementMVC.Controllers
             }
 
             return View(model);
+        }
+        public IActionResult ShowSimilar(int id)
+        {
+            var currentAnnouncement = _context.announcements
+                .Include(a => a.AnnouncementDetail)
+                .FirstOrDefault(a => a.Id == id);
+
+            if (currentAnnouncement == null)
+            {
+                return NotFound();
+            }
+
+            var wordPattern = @"\b\w+\b";
+
+            var currentWords = new HashSet<string>(
+                Regex.Matches(currentAnnouncement.Title + " " + currentAnnouncement.AnnouncementDetail.Description, wordPattern)
+                .Cast<Match>()
+                .Select(m => m.Value.ToLower())
+            );
+
+            var similarAnnouncements = _context.announcements
+                .Include(a => a.AnnouncementDetail)
+                .ToList()
+                .Where(a =>
+                {
+                    var words = new HashSet<string>(
+                        Regex.Matches(a.Title + " " + a.AnnouncementDetail.Description, wordPattern)
+                        .Cast<Match>()
+                        .Select(m => m.Value.ToLower())
+                    );
+
+                    return words.Overlaps(currentWords);
+                })
+                .Take(3)
+                .ToList();
+
+            return View(similarAnnouncements);
         }
     }
 }
