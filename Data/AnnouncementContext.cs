@@ -12,13 +12,12 @@ namespace AnnouncementMVC.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuring Announcement entity
             modelBuilder.Entity<Announcement>(entity =>
             {
                 entity.HasKey(a => a.Id);
 
                 entity.Property(a => a.Id)
-                      .ValueGeneratedOnAdd();  // Id генерується базою даних
+                      .ValueGeneratedOnAdd(); 
 
                 entity.Property(a => a.Title)
                       .IsRequired()
@@ -30,13 +29,12 @@ namespace AnnouncementMVC.Data
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Configuring AnnouncementDetail entity
             modelBuilder.Entity<AnnouncementDetails>(entity =>
             {
                 entity.HasKey(ad => ad.Id);
 
                 entity.Property(ad => ad.Id)
-                      .ValueGeneratedOnAdd();  // Id генерується базою даних
+                      .ValueGeneratedOnAdd();  
 
                 entity.Property(ad => ad.DateAdded)
                       .IsRequired();
